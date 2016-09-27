@@ -1,5 +1,5 @@
 <form>
-  <label>Conf-2016</label>
+  <label>Search DataModel</label>
   <search id="timeInfo">
     <query>| tstats summariesonly=$summary$ count AS Transaction sum(Purchase.price) AS "price" sum(Purchase.is_success) AS "success" sum(Purchase.is_fail) AS "fail"
       FROM datamodel="Tutorial" where  Purchase.$Field$="*$Value$*"
