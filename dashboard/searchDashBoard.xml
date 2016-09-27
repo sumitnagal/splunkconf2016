@@ -1,0 +1,149 @@
+<form>
+  <label>Search DashBoard</label>
+  <search id="Info">
+    <query>sourcetype="access_combined" $Field$="*$Value$*" | stats dc(JSESSIONID) as JSESSIONID,count(JSESSIONID) as Customer,sum(price) as price,values(productId) as productId by action,product_name,method</query>
+    <earliest>$tok_time.earliest$</earliest>
+    <latest>$tok_time.latest$</latest>
+  </search>
+  <description></description>
+  <fieldset autoRun="true" submitButton="true">
+    <input type="time" token="tok_time" searchWhenChanged="false">
+      <label></label>
+      <default>
+        <earliest>-30d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="Field">
+      <label>Field</label>
+      <seed>action</seed>
+    </input>
+    <input type="text" token="Value">
+      <label>Value</label>
+      <seed>*</seed>
+    </input>
+  </fieldset>
+  <row>
+    <table>
+      <title>Visitor</title>
+      <search base="Info">
+        <query>stats sum(JSESSIONID) as UniqueCustomer,sum(Customer) as Customer by action</query>
+      </search>
+      <!--<search>
+        <query>sourcetype="access_combined"| stats dc(JSESSIONID) as UniqueCustomer,count(JSESSIONID) as Customer by action</query>
+      </search>-->
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">5</option>
+      <drilldown>
+        <!-- Use set to specify the new token to be created.
+                     Use any token from the page or from the click event to produce the value needed. -->
+        <set token="form.Field">$click.name$</set>
+        <set token="form.filter">contains</set>
+        <set token="form.Value">$click.value$</set>
+        <!-- If we also set the form.sourcetype the input will get updated too -->
+      </drilldown>
+    </table>
+    <table>
+      <title>Unique</title>
+      <search base="Info">
+        <query>stats sum(JSESSIONID) as UniqueCustomer,sum(JSESSIONID) as Customer  by product_name</query>
+      </search>
+      <!--<search>
+        <query>sourcetype=access_combined | stats dc(JSESSIONID) as UniqueCustomer,count(JSESSIONID) as Customer  by product_name</query>
+      </search> -->
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">5</option>
+      <drilldown>
+        <!-- Use set to specify the new token to be created.
+                     Use any token from the page or from the click event to produce the value needed. -->
+        <set token="form.Field">$click.name$</set>
+        <set token="form.filter">contains</set>
+        <set token="form.Value">$click.value$</set>
+        <!-- If we also set the form.sourcetype the input will get updated too -->
+      </drilldown>
+    </table>
+  </row>
+  <row>
+    <table>
+      <title>Sale</title>
+      <search base="Info">
+        <query>stats sum(price) as Revenue by product_name</query>
+      </search>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">5</option>
+      <drilldown>
+        <!-- Use set to specify the new token to be created.
+                     Use any token from the page or from the click event to produce the value needed. -->
+        <set token="form.Field">$click.name$</set>
+        <set token="form.filter">contains</set>
+        <set token="form.Value">$click.value$</set>
+        <!-- If we also set the form.sourcetype the input will get updated too -->
+      </drilldown>
+    </table>
+    <table>
+      <title>Sale</title>
+      <search base="Info">
+        <query>search action=purchase | stats sum(JSESSIONID) as UniqueCustomer,sum(JSESSIONID) as Customer  by product_name</query>
+      </search>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">row</option>
+      <option name="count">5</option>
+      <drilldown>
+        <!-- Use set to specify the new token to be created.
+                     Use any token from the page or from the click event to produce the value needed. -->
+        <set token="form.Field">$click.name$</set>
+        <set token="form.filter">contains</set>
+        <set token="form.Value">$click.value$</set>
+        <!-- If we also set the form.sourcetype the input will get updated too -->
+      </drilldown>
+    </table>
+  </row>
+  <row>
+    <table>
+      <search base="Info">
+        <query>search action=purchase | stats sum(JSESSIONID) as UniqueCustomer,sum(JSESSIONID) as Customer  by product_name,action</query>
+      </search>
+      <option name="wrap">true</option>
+      <option name="rowNumbers">false</option>
+      <option name="dataOverlayMode">none</option>
+      <option name="drilldown">cell</option>
+      <option name="count">5</option>
+      <drilldown>
+        <!-- Use set to specify the new token to be created.
+                     Use any token from the page or from the click event to produce the value needed. -->
+        <set token="form.Field">$click.name$</set>
+        <set token="form.filter">contains</set>
+        <set token="form.Value">$click.value$</set>
+        <set token="verbose">$click.value$</set>
+        <!-- If we also set the form.sourcetype the input will get updated too -->
+      </drilldown>
+    </table>
+  </row>
+  <row>
+    <panel>
+      <table depends="$verbose$">
+        <title>Information Web</title>
+        <search base="Info">
+          <query>head 25</query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="charting.drilldown">none</option>
+        <option name="drilldown">none</option>
+        <option name="count">5</option>
+      </table>
+    </panel>
+  </row>
+</form>
