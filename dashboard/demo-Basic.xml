@@ -1,0 +1,66 @@
+<form>
+  <label>conf2016 - Demo Pivot search</label>
+  <search id="timeInfo">
+    <query>| tstats summariesonly=t count AS Transaction sum(Purchase.price) AS "Revenue" count(Purchase.is_success) AS "success" count(Purchase.is_fail) AS "fail" 
+      FROM datamodel="Tutorial" where  Purchase.product_name="*" 
+      groupby host,_time,Purchase.product_name,Purchase.categoryId| 
+      rename Purchase.categoryId as categoryId| rename Purchase.product_name as product_name</query>
+    <earliest>$tok_time.earliest$</earliest>
+    <latest>$tok_time.latest$</latest>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>0</earliest>
+        <latest></latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>Demo - Purchase Request</title>
+        <search ref="Demo - Purchase Request"></search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Demo - Purchase Request Success</title>
+        <search ref="Demo - Purchase Request Success"></search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Demo - Purchase Request Fail</title>
+        <search ref="Demo - Purchase Request Fail"></search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Demo - Browser Version</title>
+        <search ref="Demo - Browser Version"></search>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Demo - Product Catagory</title>
+        <search ref="Demo - Product Catagory"></search>
+      </chart>
+    </panel>
+    <panel>
+      <table>
+        <title>Demo - Purchases by Product</title>
+        <search ref="Demo - Purchases by Product"></search>
+        <option name="wrap">undefined</option>
+        <option name="rowNumbers">undefined</option>
+        <option name="drilldown">row</option>
+      </table>
+    </panel>
+  </row>
+</form>
