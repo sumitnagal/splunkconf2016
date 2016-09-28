@@ -1,9 +1,9 @@
 <form>
   <label>conf2016 - Demo Pivot search</label>
   <search id="timeInfo">
-    <query>| tstats summariesonly=t count AS Transaction sum(Purchase.price) AS "Revenue" count(Purchase.is_success) AS "success" count(Purchase.is_fail) AS "fail" 
-      FROM datamodel="Tutorial" where  Purchase.product_name="*" 
-      groupby host,_time,Purchase.product_name,Purchase.categoryId| 
+    <query>| tstats summariesonly=t count AS Transaction sum(Purchase.price) AS "Revenue" count(Purchase.is_success) AS "success" count(Purchase.is_fail) AS "fail"
+      FROM datamodel="Tutorial" where  Purchase.product_name="*"
+      groupby host,_time,Purchase.product_name,Purchase.categoryId|
       rename Purchase.categoryId as categoryId| rename Purchase.product_name as product_name</query>
     <earliest>$tok_time.earliest$</earliest>
     <latest>$tok_time.latest$</latest>

@@ -14,7 +14,7 @@
       <single>
         <title>Demo - Purchase Request</title>
         <search>
-          <query>| pivot Tutorial Purchase count(Purchase) AS "Count of Purchase" ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
+          <query>| pivot Tutorial Purchase count(product_name) AS "Count of Purchase" ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
           <earliest>$tok_time.earliest$</earliest>
           <latest>$tok_time.latest$</latest>
         </search>
@@ -40,7 +40,7 @@
       <single>
         <title>Demo - Purchase Request Success</title>
         <search>
-          <query>| pivot Tutorial success count(success) AS "Count of success" ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
+          <query>| pivot Tutorial success count(product_name) AS "Count of success" ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
           <earliest>$tok_time.earliest$</earliest>
           <latest>$tok_time.latest$</latest>
         </search>
@@ -65,7 +65,7 @@
       <single>
         <title>Demo - Purchase Request Fail</title>
         <search>
-          <query>| pivot Tutorial fail count(fail) AS "Count of fail" ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
+          <query>| pivot Tutorial fail count(product_name) AS "Count of fail" ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
           <earliest>$tok_time.earliest$</earliest>
           <latest>$tok_time.latest$</latest>
         </search>
@@ -127,7 +127,7 @@
     <panel>
       <chart>
         <search>
-          <query>| pivot Tutorial success count(success) AS "Count of success" SPLITROW categoryId AS Catagory SORT 100 categoryId ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
+          <query>| pivot Tutorial success count(product_name) AS "Count of success" SPLITROW categoryId AS Catagory SORT 100 categoryId ROWSUMMARY 0 COLSUMMARY 0 NUMCOLS 0 SHOWOTHER 1</query>
           <earliest>$tok_time.earliest$</earliest>
           <latest>$tok_time.latest$</latest>
         </search>
@@ -140,7 +140,7 @@
         <option name="charting.axisX.scale">linear</option>
         <option name="charting.axisY.scale">linear</option>
         <option name="charting.axisY2.scale">inherit</option>
-        <option name="charting.chart">pie</option>
+        <option name="charting.chart">column</option>
         <option name="charting.chart.bubbleMaximumSize">50</option>
         <option name="charting.chart.bubbleMinimumSize">10</option>
         <option name="charting.chart.bubbleSizeBy">area</option>

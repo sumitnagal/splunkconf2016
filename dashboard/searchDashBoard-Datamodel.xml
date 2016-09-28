@@ -2,7 +2,7 @@
   <label>conf2016 - Search DataModel</label>
   <search id="timeInfo">
     <query>| tstats summariesonly=$summary$ count AS Transaction sum(Purchase.price) AS "price" sum(Purchase.is_success) AS "success" sum(Purchase.is_fail) AS "fail"
-      FROM datamodel="Conf_2016" where  Purchase.$Field$="*$Value$*"
+      FROM datamodel="Tutorial" where  Purchase.$Field$="*$Value$*"
       groupby host,_time,Purchase.product_name,Purchase.categoryId,Purchase.version,Purchase.browser|    rename Purchase.version as version| rename Purchase.browser as browser |
        rename Purchase.categoryId as categoryId| rename Purchase.product_name as product_name</query>
     <earliest>$tok_time.earliest$</earliest>
@@ -359,4 +359,3 @@
     </panel>
   </row>
 </form>
-

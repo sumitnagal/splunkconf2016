@@ -1,9 +1,8 @@
 <form>
   <label>conf2016 - Search Pivot</label>
   <search id="timeInfo">
-    <query>| pivot Tutorial Purchase sum(price) AS "price" count(is_fail) AS "fail" count(is_success) AS "success" count(Purchase) AS "Transaction"        SPLITROW product_name AS product_name SPLITROW categoryId AS categoryId SPLITROW browser AS browser SPLITROW version AS version SPLITROW host AS host SPLITROW _time AS _time PERIOD auto 
-     FILTER $Field$ contains "$Value$" product_name 
-    </query>
+    <query>| pivot Tutorial Purchase sum(price) AS "price" count(is_fail) AS "fail" count(is_success) AS "success" count(Purchase) AS "Transaction"        SPLITROW product_name AS product_name SPLITROW categoryId AS categoryId SPLITROW browser AS browser SPLITROW version AS version SPLITROW host AS host SPLITROW _time AS _time PERIOD auto
+     FILTER $Field$ contains "$Value$" product_name</query>
     <earliest>$tok_time.earliest$</earliest>
     <latest>$tok_time.latest$</latest>
   </search>
@@ -11,8 +10,8 @@
     <input type="time" token="tok_time" searchWhenChanged="false">
       <label></label>
       <default>
-        <earliest>-6mon</earliest>
-        <latest>now</latest>
+        <earliest>0</earliest>
+        <latest></latest>
       </default>
     </input>
     <input type="text" token="Field">
